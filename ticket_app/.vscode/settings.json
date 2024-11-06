@@ -1,0 +1,4 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "cmake.sourceDirectory": "C:/Users/user/Desktop/flutter-app/ticket_app/linux"
+}
