@@ -1,3 +1,4 @@
+// ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:ticket_app/base/res/styles/app_styles.dart';
@@ -18,7 +19,6 @@ class _HotelDetailState extends State<HotelDetail> {
     super.didChangeDependencies();
     var args = ModalRoute.of(context)!.settings.arguments as Map;
     index = args["index"];
-
   }
 
   @override
@@ -27,7 +27,7 @@ class _HotelDetailState extends State<HotelDetail> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
-            expandedHeight: 340.0,
+            expandedHeight: 300.0,
             floating: false,
             pinned: true,
             leading: Padding(
@@ -58,7 +58,8 @@ class _HotelDetailState extends State<HotelDetail> {
                     bottom: 20.0,
                     right: 20.0,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
                       color: Colors.black.withOpacity(0.5),
                       child: Text(
                         hotelList[index]["place"],
@@ -76,12 +77,12 @@ class _HotelDetailState extends State<HotelDetail> {
           ),
           SliverList(
             delegate: SliverChildListDelegate([
-              const Padding(
-                padding: EdgeInsets.all(16.0),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
                 child: Column(
                   children: [
-                    Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum. Cras venenatis euismod malesuada. Maecenas ac ligula id orci varius pharetra ut a ex. Fusce mollis felis at velit scelerisque, vel feugiat lacus dictum. Proin dignissim eros id augue blandit, sed elementum lorem varius. Ut non velit ac metus vestibulum facilisis in ac erat. Morbi vel sagittis lectus, sit amet condimentum arcu.",
+                    ExpandedTextWidget(
+                      text: hotelList[index]["detail"],
                     ),
                   ],
                 ),
@@ -97,12 +98,12 @@ class _HotelDetailState extends State<HotelDetail> {
                 height: 200.0,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
+                  itemCount: (hotelList[index]["images"] as List).length,
+                  itemBuilder: (context, imgIndex) {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Image.network(
-                        "https://picsum.photos/300/300",
+                      child: Image.asset(
+                        "assets/images/${hotelList[index]["images"][imgIndex]}",
                         fit: BoxFit.cover,
                       ),
                     );
@@ -113,6 +114,45 @@ class _HotelDetailState extends State<HotelDetail> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class ExpandedTextWidget extends StatefulWidget {
+  const ExpandedTextWidget({
+    super.key,
+    required this.text,
+  });
+  final String text;
+
+  @override
+  State<ExpandedTextWidget> createState() => _ExpandedTextWidgetState();
+}
+
+class _ExpandedTextWidgetState extends State<ExpandedTextWidget> {
+  bool isExpanded = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          widget.text,
+          maxLines: isExpanded ? null : 3,
+          overflow: isExpanded ? TextOverflow.visible : TextOverflow.ellipsis,
+        ),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              isExpanded = !isExpanded;
+            });
+          },
+          child: Text(
+            isExpanded ? "Show less" : "Show more",
+            style: TextStyle(color: AppStyles.primaryColor),
+          ),
+        ),
+      ],
     );
   }
 }

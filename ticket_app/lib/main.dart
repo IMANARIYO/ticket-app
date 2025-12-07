@@ -23,16 +23,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      // home: const BottomNavBar(),
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: {
-      AppRoutes.homePage:(context) => const BottomNavBar(),
-      AppRoutes.allTickets:(context) => const AllTickets(),
-      AppRoutes.ticketScreen:(context) => const TicketScreen(),
-        AppRoutes.allHotels:(context) => const AllHotels(),
-AppRoutes.hotelDetail:(context)=>const HotelDetail(),
-AppRoutes.profileScreen:(context)=>const ProfileScreen(),
+        AppRoutes.homePage: (context) => const BottomNavBar(),
+        AppRoutes.allTickets: (context) => const AllTickets(),
+        AppRoutes.ticketScreen: (context) => const TicketScreen(),
+        AppRoutes.allHotels: (context) => const AllHotels(),
+        AppRoutes.hotelDetail: (context) => const HotelDetail(),
+        AppRoutes.profileScreen: (context) => const ProfileScreen(),
       },
     );
   }

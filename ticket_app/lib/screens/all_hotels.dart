@@ -21,15 +21,13 @@ class AllHotels extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 16.0,
                 mainAxisSpacing: 16.0,
-                childAspectRatio: 0.9),
-                      itemCount: hotelList.length,
-                      itemBuilder:(context,index){
-var singleHotel=hotelList[index];
-              return HotelGridView(hotel:singleHotel,index:index);
-            }
-                ),
+                childAspectRatio: 0.70),
+            itemCount: hotelList.length,
+            itemBuilder: (context, index) {
+              var singleHotel = hotelList[index];
+              return HotelGridView(hotel: singleHotel, index: index);
+            }),
       ),
-
     );
   }
 }
@@ -37,22 +35,19 @@ var singleHotel=hotelList[index];
 class HotelGridView extends StatelessWidget {
   final Map<String, dynamic> hotel;
   final int index;
-  const HotelGridView({super.key, required this.hotel,required this.index});
+  const HotelGridView({super.key, required this.hotel, required this.index});
 
   @override
   Widget build(BuildContext context) {
-   
     return GestureDetector(
-onTap: (){
-  print("my index is $index");
-  Navigator.pushNamed(context, AppRoutes.hotelDetail,arguments:{
-    "index":index
-  } );
-},
+      onTap: () {
+        Navigator.pushNamed(context, AppRoutes.hotelDetail,
+            arguments: {"index": index});
+      },
       child: Container(
         padding: const EdgeInsets.all(8.0),
         // width: size.width * 0.6,
-        height: 350,
+        // height: 500,
         margin: const EdgeInsets.only(right: 8),
         decoration: BoxDecoration(
           color: AppStyles.primaryColor,
@@ -68,7 +63,8 @@ onTap: (){
                   color: AppStyles.primaryColor,
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
-                    image: AssetImage("assets/images/${hotel['image']}"), // Ensure 'hotel['image']' has the correct path
+                    image: AssetImage(
+                        "assets/images/${hotel['image']}"), // Ensure 'hotel['image']' has the correct path
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -81,31 +77,36 @@ onTap: (){
               padding: const EdgeInsets.only(left: 15),
               child: Text(
                 hotel['place'] ?? "Unknown Place", // Display dynamic place name
-                style:
-                AppStyles.headLineStyle3.copyWith(color: AppStyles.kakiColor),
+                style: AppStyles.headLineStyle3
+                    .copyWith(color: AppStyles.kakiColor),
               ),
             ),
-      
-           Row(children: [
-             Padding(
-               padding: const EdgeInsets.only(left: 15),
-               child: Text(
-                 hotel['destination'] ?? "Unknown Destination", // Display dynamic destination
-                 style: AppStyles.headLineStyle3.copyWith(color: Colors.white),
-               ),
-             ),
-               const SizedBox(
-               width: 5,
-             ),
-             Padding(
-               padding: const EdgeInsets.only(left: 15),
-               child: Text(
-                 "\$${hotel['price'] ?? 0}/night", // Display dynamic price
-                 style:
-                 AppStyles.headLineStyle4.copyWith(color: AppStyles.kakiColor),
-               ),
-             ),
-           ],)
+            Wrap(
+              spacing: 10, // horizontal gap
+              runSpacing: 4, // vertical gap when wrapping
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: Text(
+                    hotel['destination'] ??
+                        "Unknown Destination", // Display dynamic destination
+                    style:
+                        AppStyles.headLineStyle3.copyWith(color: Colors.white),
+                  ),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: Text(
+                    "\$${hotel['price'] ?? 0}/night", // Display dynamic price
+                    style: AppStyles.headLineStyle4
+                        .copyWith(color: AppStyles.kakiColor),
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),

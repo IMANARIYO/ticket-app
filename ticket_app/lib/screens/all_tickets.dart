@@ -18,24 +18,19 @@ class AllTickets extends StatelessWidget {
             child: Column(
               children: ticketList
                   .map((singleTicket) => GestureDetector(
-                onTap: (){
+                        onTap: () {
+                          var index = ticketList.indexOf(singleTicket);
 
-                  var index=ticketList.indexOf(singleTicket);
-
-
-                    print("am tapped _________________________$index");
-
-                  Navigator.pushNamed(context, AppRoutes.ticketScreen,arguments: {
-                  "index":index
-                  });
-                } ,
-                    child: Container(
-                        margin: const EdgeInsets.only(bottom: 20),
-                        child: TicketView(
-                          ticket: singleTicket,
-                          wholeScreen: true,
-                        )),
-                  ))
+                          Navigator.pushNamed(context, AppRoutes.ticketScreen,
+                              arguments: {"index": index});
+                        },
+                        child: Container(
+                            margin: const EdgeInsets.only(bottom: 20),
+                            child: TicketView(
+                              ticket: singleTicket,
+                              wholeScreen: true,
+                            )),
+                      ))
                   .toList(),
             ),
           )

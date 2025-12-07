@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:ticket_app/base/res/media.dart';
@@ -17,19 +19,19 @@ class TicketScreen extends StatefulWidget {
 }
 
 class _TicketScreenState extends State<TicketScreen> {
- late int ticketIndex=0;
+  late int ticketIndex = 0;
   @override
   void didChangeDependencies() {
-    if(ModalRoute.of(context)!.settings.arguments!=null){
-      var args=ModalRoute.of(context)!.settings.arguments as Map;
+    if (ModalRoute.of(context)!.settings.arguments != null) {
+      var args = ModalRoute.of(context)!.settings.arguments as Map;
       // print("passed index ${args["index"]}");
-      ticketIndex=args["index"];
-
+      ticketIndex = args["index"];
     }
 
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +40,6 @@ class _TicketScreenState extends State<TicketScreen> {
           title: const Text('Ticket screen title'),
           backgroundColor: AppStyles.bgColor,
         ),
-
         body: Stack(
           children: [
             ListView(
@@ -54,7 +55,8 @@ class _TicketScreenState extends State<TicketScreen> {
                 // const SizedBox(
                 //   height: 20,
                 // ),
-                const AppTicketsTabs(firstTab: "Upcoming", secondTab: "Previous"),
+                const AppTicketsTabs(
+                    firstTab: "Upcoming", secondTab: "Previous"),
                 const SizedBox(
                   height: 20,
                 ),
@@ -71,7 +73,8 @@ class _TicketScreenState extends State<TicketScreen> {
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 15),
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
                   color: AppStyles.ticketColor,
                   child: Column(
                     children: [
@@ -139,7 +142,7 @@ class _TicketScreenState extends State<TicketScreen> {
                               Row(
                                 children: [
                                   Image.asset(
-                                    AppMedia.VisaCard,
+                                    AppMedia.visaCard,
                                     scale: 11,
                                   ),
                                   Text(
@@ -171,7 +174,7 @@ class _TicketScreenState extends State<TicketScreen> {
                 const SizedBox(
                   height: 1,
                 ),
-            // bottom of ticket detail section
+                // bottom of ticket detail section
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 15),
                   padding: const EdgeInsets.symmetric(vertical: 20),
@@ -206,8 +209,12 @@ class _TicketScreenState extends State<TicketScreen> {
                     )),
               ],
             ),
-            const TicketPositionedCircle(pos: true,),
-            const TicketPositionedCircle(pos: null,)
+            const TicketPositionedCircle(
+              pos: true,
+            ),
+            const TicketPositionedCircle(
+              pos: null,
+            )
           ],
         ));
   }
